@@ -24,6 +24,7 @@
 		D838018427F3CAE3000A3177 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D838018727F3CAE3000A3177 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D838018927F3CAE3000A3177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8539A8C27F3D07F00AA7921 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Modules; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +41,7 @@
 		D838016F27F3CAE1000A3177 = {
 			isa = PBXGroup;
 			children = (
+				D8539A8C27F3D07F00AA7921 /* Modules */,
 				D838017A27F3CAE1000A3177 /* MarvelHeroes */,
 				D838017927F3CAE1000A3177 /* Products */,
 			);
