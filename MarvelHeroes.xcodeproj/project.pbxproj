@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		D838017C27F3CAE1000A3177 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838017B27F3CAE1000A3177 /* AppDelegate.swift */; };
 		D838017E27F3CAE1000A3177 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838017D27F3CAE1000A3177 /* SceneDelegate.swift */; };
-		D838018027F3CAE1000A3177 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838017F27F3CAE1000A3177 /* ViewController.swift */; };
-		D838018327F3CAE1000A3177 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D838018127F3CAE1000A3177 /* Main.storyboard */; };
 		D838018527F3CAE3000A3177 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D838018427F3CAE3000A3177 /* Assets.xcassets */; };
 		D838018827F3CAE3000A3177 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D838018627F3CAE3000A3177 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -19,8 +17,6 @@
 		D838017827F3CAE1000A3177 /* MarvelHeroes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarvelHeroes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D838017B27F3CAE1000A3177 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D838017D27F3CAE1000A3177 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D838017F27F3CAE1000A3177 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		D838018227F3CAE1000A3177 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D838018427F3CAE3000A3177 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D838018727F3CAE3000A3177 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D838018927F3CAE3000A3177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -60,8 +56,6 @@
 			children = (
 				D838017B27F3CAE1000A3177 /* AppDelegate.swift */,
 				D838017D27F3CAE1000A3177 /* SceneDelegate.swift */,
-				D838017F27F3CAE1000A3177 /* ViewController.swift */,
-				D838018127F3CAE1000A3177 /* Main.storyboard */,
 				D838018427F3CAE3000A3177 /* Assets.xcassets */,
 				D838018627F3CAE3000A3177 /* LaunchScreen.storyboard */,
 				D838018927F3CAE3000A3177 /* Info.plist */,
@@ -129,7 +123,6 @@
 			files = (
 				D838018827F3CAE3000A3177 /* LaunchScreen.storyboard in Resources */,
 				D838018527F3CAE3000A3177 /* Assets.xcassets in Resources */,
-				D838018327F3CAE1000A3177 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,7 +133,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D838018027F3CAE1000A3177 /* ViewController.swift in Sources */,
 				D838017C27F3CAE1000A3177 /* AppDelegate.swift in Sources */,
 				D838017E27F3CAE1000A3177 /* SceneDelegate.swift in Sources */,
 			);
@@ -149,14 +141,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		D838018127F3CAE1000A3177 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D838018227F3CAE1000A3177 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D838018627F3CAE3000A3177 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -296,7 +280,6 @@
 				INFOPLIST_FILE = MarvelHeroes/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -308,7 +291,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -324,7 +307,6 @@
 				INFOPLIST_FILE = MarvelHeroes/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -336,7 +318,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
