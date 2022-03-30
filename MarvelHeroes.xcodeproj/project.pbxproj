@@ -11,6 +11,7 @@
 		D838017E27F3CAE1000A3177 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838017D27F3CAE1000A3177 /* SceneDelegate.swift */; };
 		D838018527F3CAE3000A3177 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D838018427F3CAE3000A3177 /* Assets.xcassets */; };
 		D838018827F3CAE3000A3177 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D838018627F3CAE3000A3177 /* LaunchScreen.storyboard */; };
+		D8539A8F27F4D55600AA7921 /* HeroesFeature in Frameworks */ = {isa = PBXBuildFile; productRef = D8539A8E27F4D55600AA7921 /* HeroesFeature */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8539A8F27F4D55600AA7921 /* HeroesFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +42,7 @@
 				D8539A8C27F3D07F00AA7921 /* Modules */,
 				D838017A27F3CAE1000A3177 /* MarvelHeroes */,
 				D838017927F3CAE1000A3177 /* Products */,
+				D8539A8D27F4D55600AA7921 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,6 +66,13 @@
 			path = MarvelHeroes;
 			sourceTree = "<group>";
 		};
+		D8539A8D27F4D55600AA7921 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -79,6 +89,9 @@
 			dependencies = (
 			);
 			name = MarvelHeroes;
+			packageProductDependencies = (
+				D8539A8E27F4D55600AA7921 /* HeroesFeature */,
+			);
 			productName = MarvelHeroes;
 			productReference = D838017827F3CAE1000A3177 /* MarvelHeroes.app */;
 			productType = "com.apple.product-type.application";
@@ -344,6 +357,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D8539A8E27F4D55600AA7921 /* HeroesFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HeroesFeature;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D838017027F3CAE1000A3177 /* Project object */;
 }
