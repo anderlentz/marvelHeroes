@@ -5,6 +5,7 @@
 //  Created by Anderson Lentz on 30/03/22.
 //
 
+import CoreUI
 import Foundation
 import UIKit
 
@@ -27,3 +28,17 @@ public class HeroesViewController: UIViewController {
     }
     
 }
+
+#if DEBUG
+import SwiftUI
+
+struct HeroesView_Previews: PreviewProvider {
+    static var previews: some View {
+        UINavigationController(
+            rootViewController: HeroesViewController()
+        )
+        .asSwiftUIView
+        .edgesIgnoringSafeArea(.all)
+    }
+}
+#endif
