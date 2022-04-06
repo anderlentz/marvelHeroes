@@ -16,7 +16,12 @@ let package = Package(
             ]
         )
     ],
-    dependencies: [],
+    dependencies: [
+        .package(
+            url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
+            from: "1.9.0"
+          ),
+    ],
     targets: [
         .target(
             name: "HeroesFeature",
@@ -26,7 +31,10 @@ let package = Package(
         ),
         .testTarget(
             name: "HeroesFeatureTests",
-            dependencies: ["HeroesFeature"]
+            dependencies: [
+                "HeroesFeature",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+            ]
         ),
         .target(
             name: "CoreUI",
@@ -35,5 +43,6 @@ let package = Package(
             name: "CoreUITests",
             dependencies: ["CoreUI"]
         ),
+        
     ]
 )
