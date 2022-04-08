@@ -8,7 +8,7 @@ class SnapshotTestCase: XCTestCase {
         let fakeImage = UIColor.yellow.image()
         let sut = HeroCollectionViewCell()
         
-        sut.data = .init(thumbnail: fakeImage)
+        sut.data = .init(name: "Test", thumbnail: fakeImage)
         
         assertSnapshot(matching: sut, as: .image(size: .init(width: 44, height: 44)))
     }
