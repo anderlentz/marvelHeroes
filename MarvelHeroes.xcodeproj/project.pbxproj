@@ -12,6 +12,7 @@
 		D838018527F3CAE3000A3177 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D838018427F3CAE3000A3177 /* Assets.xcassets */; };
 		D838018827F3CAE3000A3177 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D838018627F3CAE3000A3177 /* LaunchScreen.storyboard */; };
 		D8466BFF27FA7E7D00195476 /* Modules in Frameworks */ = {isa = PBXBuildFile; productRef = D8466BFE27FA7E7D00195476 /* Modules */; };
+		D8466C0527FFB60200195476 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = D8466C0427FFB60200195476 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8466C0527FFB60200195476 /* ComposableArchitecture in Frameworks */,
 				D8466BFF27FA7E7D00195476 /* Modules in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,6 +93,7 @@
 			name = MarvelHeroes;
 			packageProductDependencies = (
 				D8466BFE27FA7E7D00195476 /* Modules */,
+				D8466C0427FFB60200195476 /* ComposableArchitecture */,
 			);
 			productName = MarvelHeroes;
 			productReference = D838017827F3CAE1000A3177 /* MarvelHeroes.app */;
@@ -120,6 +123,9 @@
 				Base,
 			);
 			mainGroup = D838016F27F3CAE1000A3177;
+			packageReferences = (
+				D8466C0327FFB60200195476 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = D838017927F3CAE1000A3177 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -358,10 +364,26 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		D8466C0327FFB60200195476 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		D8466BFE27FA7E7D00195476 /* Modules */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Modules;
+		};
+		D8466C0427FFB60200195476 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D8466C0327FFB60200195476 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
