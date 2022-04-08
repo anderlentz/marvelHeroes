@@ -13,9 +13,9 @@ public class HeroesViewController: UIViewController {
     // MARK: - Properties
     private let viewStore: ViewStore<HoroesViewState, HeroesViewAction>
     
-    private var collectionView: UICollectionView!
+    private(set) var collectionView: UICollectionView!
+    private(set) var sections: [HeroesSection] = [.main]
     private var dataSource: DataSource?
-    private var sections: [HeroesSection] = [.main]
     private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Initializer
@@ -99,17 +99,3 @@ public class HeroesViewController: UIViewController {
     }
     
 }
-
-//#if DEBUG
-//import SwiftUI
-//
-//struct HeroesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        UINavigationController(
-//            rootViewController: HeroesViewController(store: <#Store<HoroesViewState, HeroesViewAction>#>)
-//        )
-//        .asSwiftUIView
-//        .edgesIgnoringSafeArea(.all)
-//    }
-//}
-//#endif
