@@ -1,44 +1,115 @@
-//
-//  File.swift
-//  
-//
-//  Created by Anderson Lentz on 30/03/22.
-//
-
+import Combine
+import ComposableArchitecture
 import CoreUI
 import Foundation
 import UIKit
 
 public class HeroesViewController: UIViewController {
     
-    internal var theView: HeroesView {
-        return view as! HeroesView
-    }
+    // MARK: - Define
+    private typealias DataSource = UICollectionViewDiffableDataSource<HeroesSection, HeroCellData>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<HeroesSection, HeroCellData>
     
-    public init() {
+    // MARK: - Properties
+    private let viewStore: ViewStore<HoroesViewState, HeroesViewAction>
+    
+    private var collectionView: UICollectionView!
+    private var dataSource: DataSource?
+    private var sections: [HeroesSection] = [.main]
+    private var cancellables: Set<AnyCancellable> = []
+    
+    // MARK: - Initializer
+    public init(store: Store<HoroesViewState, HeroesViewAction>) {
+        self.viewStore = ViewStore(store)
         super.init(nibName: nil, bundle: nil)
-    }
+      }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override func loadView() {
-        view = HeroesView()
+    // MARK: - Life Cycle
+    public override func viewDidLoad() {
+        configureCollectionView()
+        createDataSource()
+        
+        self.viewStore.publisher
+            .heroCellsData
+            .sink { [weak self] data in self?.applySnapshot(from: data) }
+            .store(in: &self.cancellables)
+    }
+    
+    // MARK: - Config View
+    
+    private func configureCollectionView() {
+        let screenWidth = UIScreen.main.bounds.width - 24
+        
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 0, right: 8)
+        flowLayout.minimumInteritemSpacing = 8
+        flowLayout.minimumLineSpacing = 8
+        flowLayout.itemSize = CGSize(width: screenWidth/2, height: screenWidth/2)
+        
+        collectionView = UICollectionView(
+            frame: view.bounds,
+            collectionViewLayout: flowLayout
+        )
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .systemBackground
+        view.addSubview(collectionView)
+        
+        collectionView.register(
+            HeroCollectionViewCell.self,
+            forCellWithReuseIdentifier: HeroCollectionViewCell.reusableIdentifier
+        )
+    }
+    
+    private func configure<T: SelfConfiguringCell>(
+        _ cellType: T.Type,
+        with data: HeroCellData,
+        for indexPath: IndexPath
+    ) -> T where T.DataType == HeroCellData {
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellType.reusableIdentifier, for: indexPath) as? T else {
+            fatalError("Unable to dequeue \(cellType)")
+        }
+        
+        cell.configure(with: data)
+        return cell
+    }
+    
+    private func createDataSource() {
+        dataSource = DataSource(
+            collectionView: collectionView,
+            cellProvider: { collectionView, indexPath, heroCellData in
+                self.configure(HeroCollectionViewCell.self, with: heroCellData, for: indexPath)
+            }
+        )
+    }
+    
+    private func applySnapshot(from heroCellsData: [HeroCellData]) {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        
+        for section in sections {
+            snapshot.appendItems(heroCellsData, toSection: section)
+        }
+        
+        dataSource?.apply(snapshot)
     }
     
 }
 
-#if DEBUG
-import SwiftUI
-
-struct HeroesView_Previews: PreviewProvider {
-    static var previews: some View {
-        UINavigationController(
-            rootViewController: HeroesViewController()
-        )
-        .asSwiftUIView
-        .edgesIgnoringSafeArea(.all)
-    }
-}
-#endif
+//#if DEBUG
+//import SwiftUI
+//
+//struct HeroesView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        UINavigationController(
+//            rootViewController: HeroesViewController(store: <#Store<HoroesViewState, HeroesViewAction>#>)
+//        )
+//        .asSwiftUIView
+//        .edgesIgnoringSafeArea(.all)
+//    }
+//}
+//#endif

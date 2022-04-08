@@ -5,7 +5,7 @@ class HeroCollectionViewCell: UICollectionViewCell {
 
     private var thumbnail = UIImageView()
     
-    var data: Data? {
+    var data: HeroCellData? {
         didSet {
             thumbnail.image = data?.thumbnail
         }
@@ -37,20 +37,15 @@ class HeroCollectionViewCell: UICollectionViewCell {
 
 extension HeroCollectionViewCell: SelfConfiguringCell {
     
-    typealias DataType = Data
+    typealias DataType = HeroCellData
     
     static var reusableIdentifier: String {
         String(describing: self)
     }
     
     
-    func configure(with data: Data) {
+    func configure(with data: DataType) {
         thumbnail.image = data.thumbnail
     }
     
-}
-extension HeroCollectionViewCell {
-    struct Data {
-        let thumbnail: UIImage
-    }
 }
