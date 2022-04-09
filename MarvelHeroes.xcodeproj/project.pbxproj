@@ -11,8 +11,8 @@
 		D838017E27F3CAE1000A3177 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838017D27F3CAE1000A3177 /* SceneDelegate.swift */; };
 		D838018527F3CAE3000A3177 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D838018427F3CAE3000A3177 /* Assets.xcassets */; };
 		D838018827F3CAE3000A3177 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D838018627F3CAE3000A3177 /* LaunchScreen.storyboard */; };
-		D8466BFF27FA7E7D00195476 /* Modules in Frameworks */ = {isa = PBXBuildFile; productRef = D8466BFE27FA7E7D00195476 /* Modules */; };
 		D8466C0527FFB60200195476 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = D8466C0427FFB60200195476 /* ComposableArchitecture */; };
+		D8466C072800D53500195476 /* HeroesFeature in Frameworks */ = {isa = PBXBuildFile; productRef = D8466C062800D53500195476 /* HeroesFeature */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +31,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8466C0527FFB60200195476 /* ComposableArchitecture in Frameworks */,
-				D8466BFF27FA7E7D00195476 /* Modules in Frameworks */,
+				D8466C072800D53500195476 /* HeroesFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,8 +92,8 @@
 			);
 			name = MarvelHeroes;
 			packageProductDependencies = (
-				D8466BFE27FA7E7D00195476 /* Modules */,
 				D8466C0427FFB60200195476 /* ComposableArchitecture */,
+				D8466C062800D53500195476 /* HeroesFeature */,
 			);
 			productName = MarvelHeroes;
 			productReference = D838017827F3CAE1000A3177 /* MarvelHeroes.app */;
@@ -376,14 +376,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D8466BFE27FA7E7D00195476 /* Modules */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Modules;
-		};
 		D8466C0427FFB60200195476 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D8466C0327FFB60200195476 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
+		};
+		D8466C062800D53500195476 /* HeroesFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HeroesFeature;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -6,15 +6,12 @@ import PackageDescription
 let package = Package(
     name: "Modules",
     platforms: [
-        .iOS(.v14)
+        .iOS(.v15)
     ],
     products: [
-        .library(
-            name: "Modules",
-            targets: [
-                "HeroesFeature"
-            ]
-        )
+        .library(name: "HeroesFeature", targets: ["HeroesFeature"]),
+        .library(name: "CoreNetwork", targets: ["CoreNetwork"]),
+        .library(name: "URLSessionHTTPClient", targets: ["URLSessionHTTPClient"]),
     ],
     dependencies: [
         .package(
@@ -27,6 +24,24 @@ let package = Package(
         )
     ],
     targets: [
+        .target(
+            name: "CoreHTTPClient",
+            dependencies: []
+        ),
+        .testTarget(
+            name: "CoreHTTPClientTests",
+            dependencies: []
+        ),
+        .target(
+            name: "CoreNetwork",
+            dependencies: []
+        ),
+        .testTarget(
+            name: "CoreNetworkTests",
+            dependencies: [
+                "CoreNetwork"
+            ]
+        ),
         .target(
             name: "HeroesFeature",
             dependencies: [
@@ -43,11 +58,24 @@ let package = Package(
         ),
         .target(
             name: "CoreUI",
-            dependencies: []),
+            dependencies: []
+        ),
         .testTarget(
             name: "CoreUITests",
             dependencies: ["CoreUI"]
         ),
-        
+        .target(
+            name: "URLSessionHTTPClient",
+            dependencies: [
+                "CoreNetwork",
+                "CoreHTTPClient"
+            ]
+        ),
+        .testTarget(
+            name: "URLSessionHTTPClientTests",
+            dependencies: [
+                "URLSessionHTTPClient"
+            ]
+        ),
     ]
 )
