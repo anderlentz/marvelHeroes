@@ -25,4 +25,11 @@ class EndpointTestCase: XCTestCase {
         XCTAssertEqual(sut.parameters, ["fakeKey": "fakeValue"])
     }
     
+    func test_url() {
+        XCTAssertEqual(sut.url?.path, "/fakePath")
+        XCTAssertEqual(sut.baseURL, "https://fakebaseurl.com")
+        XCTAssertEqual(sut.method, .get)
+        XCTAssertEqual(sut.queryItems, [ .fakeQueryItem ])
+    }
+    
 }

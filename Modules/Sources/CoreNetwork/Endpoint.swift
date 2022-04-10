@@ -8,18 +8,8 @@ public protocol Endpoint {
     var method: HTTPMethod { get }
 }
 
-extension Endpoint {
-    public var urlRequest: URLRequest? {
-        guard let url = self.url else {
-            return nil
-        }
-        var request = URLRequest(url: url)
-        request.httpMethod = method.rawValue
-
-        return request
-    }
-    
-    private var url: URL? {
+public extension Endpoint {
+    var url: URL? {
         var urlComponents = URLComponents(string: baseURL)
         urlComponents?.path.append(path)
 
