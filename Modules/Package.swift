@@ -12,6 +12,8 @@ let package = Package(
         .library(name: "HeroesFeature", targets: ["HeroesFeature"]),
         .library(name: "CoreNetwork", targets: ["CoreNetwork"]),
         .library(name: "URLSessionHTTPClient", targets: ["URLSessionHTTPClient"]),
+        .library(name: "HeroesAPI", targets: ["HeroesAPI"]),
+        .library(name: "CoreHTTPClient", targets: ["CoreHTTPClient"]),
     ],
     dependencies: [
         .package(
@@ -40,6 +42,19 @@ let package = Package(
             name: "CoreNetworkTests",
             dependencies: [
                 "CoreNetwork"
+            ]
+        ),
+        .target(
+            name: "HeroesAPI",
+            dependencies: [
+                "CoreNetwork",
+                "HeroesFeature"
+            ]
+        ),
+        .testTarget(
+            name: "HeroesAPITests",
+            dependencies: [
+                "HeroesAPI"
             ]
         ),
         .target(
