@@ -57,7 +57,7 @@ final class HeroFeatureTests: XCTestCase {
         let anyThumbnailImage = UIColor.red.image()
         let anyThumbnailImageData = anyThumbnailImage.pngData()!
         let charactersResult = [character1]
-        let expectedCellData = HeroCellData(id: character1.id, name: character1.name, thumbnail: anyThumbnailImageData)
+        let expectedCellData = HeroCellData(id: character1.id, name: character1.name, thumbnail: anyThumbnailImageData, description: character1.description)
         
         let environment = HeroesEnvironment(
             marvelCharactersLoader: { .success(result: charactersResult) },

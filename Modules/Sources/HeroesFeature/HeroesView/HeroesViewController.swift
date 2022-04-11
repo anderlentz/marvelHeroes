@@ -29,6 +29,7 @@ public class HeroesViewController: UICollectionViewController {
     
     // MARK: - Life Cycle
     public override func viewDidLoad() {
+        navigationItem.title = "Marvel Heroes"
         configureCollectionView()
         createDataSource()
         
@@ -98,4 +99,26 @@ public class HeroesViewController: UICollectionViewController {
         dataSource?.apply(snapshot)
     }
     
+    public override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let heroCellData = dataSource?.itemIdentifier(for: indexPath) else {
+          return
+        }
+        
+        // TODO: Improve navigation, maybe with Coordinator Pattern? ;)
+        
+        navigationController?.pushViewController(
+            HeroDetailsViewController(
+                store: .init(
+                    initialState: HeroDetailsState(
+                        title: heroCellData.name,
+                        description: heroCellData.description,
+                        imageData: heroCellData.thumbnail
+                    ),
+                    reducer: .empty,
+                    environment: Void()
+                )
+            ),
+            animated: true
+        )
+    }
 }

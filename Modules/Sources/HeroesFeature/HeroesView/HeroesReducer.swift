@@ -26,7 +26,7 @@ public let heroesReducer = HeroesReducer { state, action, environment in
                     .loadThumbnail(URL(string: character.thumbnailURL)!)
                     .map { data in
                         return HeroesViewAction.show(
-                            cell: HeroCellData(id: character.id, name: character.name, thumbnail: data)
+                            cell: HeroCellData(id: character.id, name: character.name, thumbnail: data, description: character.description)
                         )
                     }
                     .receive(on: environment.mainQueue)
