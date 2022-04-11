@@ -4,7 +4,7 @@ import CoreUI
 import Foundation
 import UIKit
 
-public class HeroesViewController: UIViewController {
+public class HeroesViewController: UICollectionViewController {
     
     // MARK: - Define
     private typealias DataSource = UICollectionViewDiffableDataSource<HeroesSection, HeroCellData>
@@ -13,7 +13,6 @@ public class HeroesViewController: UIViewController {
     // MARK: - Properties
     private let viewStore: ViewStore<HoroesViewState, HeroesViewAction>
     
-    private(set) var collectionView: UICollectionView!
     private(set) var sections: [HeroesSection] = [.main]
     private var dataSource: DataSource?
     private var cancellables: Set<AnyCancellable> = []
@@ -21,7 +20,7 @@ public class HeroesViewController: UIViewController {
     // MARK: - Initializer
     public init(store: Store<HoroesViewState, HeroesViewAction>) {
         self.viewStore = ViewStore(store)
-        super.init(nibName: nil, bundle: nil)
+        super.init(collectionViewLayout: HeroesViewController.getUICollectionViewFlowLayout())
       }
     
     required init?(coder: NSCoder) {
@@ -44,18 +43,6 @@ public class HeroesViewController: UIViewController {
     // MARK: - Config View
     
     private func configureCollectionView() {
-        let screenWidth = UIScreen.main.bounds.width - 24
-        
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 0, right: 8)
-        flowLayout.minimumInteritemSpacing = 8
-        flowLayout.minimumLineSpacing = 8
-        flowLayout.itemSize = CGSize(width: screenWidth/2, height: screenWidth/2)
-        
-        collectionView = UICollectionView(
-            frame: view.bounds,
-            collectionViewLayout: flowLayout
-        )
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
         view.addSubview(collectionView)
@@ -64,6 +51,17 @@ public class HeroesViewController: UIViewController {
             HeroCollectionViewCell.self,
             forCellWithReuseIdentifier: HeroCollectionViewCell.reusableIdentifier
         )
+    }
+    
+    private static func getUICollectionViewFlowLayout() -> UICollectionViewFlowLayout {
+        let screenWidth = UIScreen.main.bounds.width - 24
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 0, right: 8)
+        flowLayout.minimumInteritemSpacing = 8
+        flowLayout.minimumLineSpacing = 8
+        flowLayout.itemSize = CGSize(width: screenWidth/2, height: screenWidth/2)
+        
+        return flowLayout
     }
     
     private func configure<T: SelfConfiguringCell>(
