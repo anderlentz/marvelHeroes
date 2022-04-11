@@ -12,7 +12,10 @@
 		D838018527F3CAE3000A3177 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D838018427F3CAE3000A3177 /* Assets.xcassets */; };
 		D838018827F3CAE3000A3177 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D838018627F3CAE3000A3177 /* LaunchScreen.storyboard */; };
 		D8466C0527FFB60200195476 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = D8466C0427FFB60200195476 /* ComposableArchitecture */; };
-		D8466C072800D53500195476 /* HeroesFeature in Frameworks */ = {isa = PBXBuildFile; productRef = D8466C062800D53500195476 /* HeroesFeature */; };
+		D8466C092802438000195476 /* CoreNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = D8466C082802438000195476 /* CoreNetwork */; };
+		D8466C0B2802438000195476 /* HeroesFeature in Frameworks */ = {isa = PBXBuildFile; productRef = D8466C0A2802438000195476 /* HeroesFeature */; };
+		D8466C0D2802438000195476 /* URLSessionHTTPClient in Frameworks */ = {isa = PBXBuildFile; productRef = D8466C0C2802438000195476 /* URLSessionHTTPClient */; };
+		D8466C0F28025EFE00195476 /* HeroesAPI in Frameworks */ = {isa = PBXBuildFile; productRef = D8466C0E28025EFE00195476 /* HeroesAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +33,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8466C092802438000195476 /* CoreNetwork in Frameworks */,
 				D8466C0527FFB60200195476 /* ComposableArchitecture in Frameworks */,
-				D8466C072800D53500195476 /* HeroesFeature in Frameworks */,
+				D8466C0F28025EFE00195476 /* HeroesAPI in Frameworks */,
+				D8466C0D2802438000195476 /* URLSessionHTTPClient in Frameworks */,
+				D8466C0B2802438000195476 /* HeroesFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +99,10 @@
 			name = MarvelHeroes;
 			packageProductDependencies = (
 				D8466C0427FFB60200195476 /* ComposableArchitecture */,
-				D8466C062800D53500195476 /* HeroesFeature */,
+				D8466C082802438000195476 /* CoreNetwork */,
+				D8466C0A2802438000195476 /* HeroesFeature */,
+				D8466C0C2802438000195476 /* URLSessionHTTPClient */,
+				D8466C0E28025EFE00195476 /* HeroesAPI */,
 			);
 			productName = MarvelHeroes;
 			productReference = D838017827F3CAE1000A3177 /* MarvelHeroes.app */;
@@ -381,9 +390,21 @@
 			package = D8466C0327FFB60200195476 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
 		};
-		D8466C062800D53500195476 /* HeroesFeature */ = {
+		D8466C082802438000195476 /* CoreNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CoreNetwork;
+		};
+		D8466C0A2802438000195476 /* HeroesFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HeroesFeature;
+		};
+		D8466C0C2802438000195476 /* URLSessionHTTPClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = URLSessionHTTPClient;
+		};
+		D8466C0E28025EFE00195476 /* HeroesAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HeroesAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
