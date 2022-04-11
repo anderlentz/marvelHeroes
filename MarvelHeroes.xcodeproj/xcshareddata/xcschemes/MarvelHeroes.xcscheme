@@ -26,8 +26,131 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
+      <CodeCoverageTargets>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "CoreHTTPClient"
+            BuildableName = "CoreHTTPClient"
+            BlueprintName = "CoreHTTPClient"
+            ReferencedContainer = "container:Modules">
+         </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "CoreNetwork"
+            BuildableName = "CoreNetwork"
+            BlueprintName = "CoreNetwork"
+            ReferencedContainer = "container:Modules">
+         </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "HeroesAPI"
+            BuildableName = "HeroesAPI"
+            BlueprintName = "HeroesAPI"
+            ReferencedContainer = "container:Modules">
+         </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "HeroesFeature"
+            BuildableName = "HeroesFeature"
+            BlueprintName = "HeroesFeature"
+            ReferencedContainer = "container:Modules">
+         </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "URLSessionHTTPClient"
+            BuildableName = "URLSessionHTTPClient"
+            BlueprintName = "URLSessionHTTPClient"
+            ReferencedContainer = "container:Modules">
+         </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "CoreNetworkTests"
+            BuildableName = "CoreNetworkTests"
+            BlueprintName = "CoreNetworkTests"
+            ReferencedContainer = "container:Modules">
+         </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "CoreUITests"
+            BuildableName = "CoreUITests"
+            BlueprintName = "CoreUITests"
+            ReferencedContainer = "container:Modules">
+         </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "HeroesAPITests"
+            BuildableName = "HeroesAPITests"
+            BlueprintName = "HeroesAPITests"
+            ReferencedContainer = "container:Modules">
+         </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "HeroesFeatureTests"
+            BuildableName = "HeroesFeatureTests"
+            BlueprintName = "HeroesFeatureTests"
+            ReferencedContainer = "container:Modules">
+         </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "URLSessionHTTPClientTests"
+            BuildableName = "URLSessionHTTPClientTests"
+            BlueprintName = "URLSessionHTTPClientTests"
+            ReferencedContainer = "container:Modules">
+         </BuildableReference>
+      </CodeCoverageTargets>
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CoreNetworkTests"
+               BuildableName = "CoreNetworkTests"
+               BlueprintName = "CoreNetworkTests"
+               ReferencedContainer = "container:Modules">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CoreUITests"
+               BuildableName = "CoreUITests"
+               BlueprintName = "CoreUITests"
+               ReferencedContainer = "container:Modules">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "HeroesAPITests"
+               BuildableName = "HeroesAPITests"
+               BlueprintName = "HeroesAPITests"
+               ReferencedContainer = "container:Modules">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "HeroesFeatureTests"
+               BuildableName = "HeroesFeatureTests"
+               BlueprintName = "HeroesFeatureTests"
+               ReferencedContainer = "container:Modules">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "URLSessionHTTPClientTests"
+               BuildableName = "URLSessionHTTPClientTests"
+               BlueprintName = "URLSessionHTTPClientTests"
+               ReferencedContainer = "container:Modules">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
