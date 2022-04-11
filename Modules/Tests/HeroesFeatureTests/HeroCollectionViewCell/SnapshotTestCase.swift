@@ -4,12 +4,12 @@ import XCTest
 
 class SnapshotTestCase: XCTestCase {
     
-    func testHeroCollectionViewCell() {
-        let fakeImage = UIColor.yellow.image()
+    func test_configure_HeroCollectionViewCell() {
+        let fakeImageData = UIColor.yellow.image().pngData()!
         let sut = HeroCollectionViewCell()
         
-        sut.data = .init(name: "Test", thumbnail: fakeImage)
-        
+        sut.configure(with: .mock(id: 1, name: "Test1", thumbnailImageData: fakeImageData))
+                
         assertSnapshot(matching: sut, as: .image(size: .init(width: 44, height: 44)))
     }
     

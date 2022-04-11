@@ -34,8 +34,8 @@ class HeroesViewControllerPropertiesTestCase: XCTestCase {
     
     func test_collectionView_numberOfItems_withNonEmptyInitialDataState_shouldHaveItems() {
         let data: [HeroCellData] = [
-            .init(name: "Test", thumbnail: UIColor.red.image()),
-            .init(name: "Test", thumbnail: UIColor.blue.image())
+            .init(id: 1, name: "Test1", thumbnail: UIColor.red.image().pngData()!),
+            .init(id: 1, name: "Test2", thumbnail: UIColor.blue.image().pngData()!)
         ]
         let sut = HeroesViewController(store: .init(initialState: .init(heroCellsData: data), reducer: .empty, environment: Void()))
         

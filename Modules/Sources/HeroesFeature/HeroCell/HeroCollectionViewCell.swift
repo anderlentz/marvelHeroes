@@ -4,13 +4,7 @@ import UIKit
 class HeroCollectionViewCell: UICollectionViewCell {
 
     private var thumbnail = UIImageView()
-    
-    var data: HeroCellData? {
-        didSet {
-            thumbnail.image = data?.thumbnail
-        }
-    }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(thumbnail)
@@ -18,7 +12,7 @@ class HeroCollectionViewCell: UICollectionViewCell {
         thumbnail.translatesAutoresizingMaskIntoConstraints = false
         thumbnail.layer.cornerRadius = 5
         thumbnail.clipsToBounds = true
-        thumbnail.contentMode = .scaleAspectFit
+        thumbnail.contentMode = .scaleToFill
         
         // Layout constraints for `thumbnail`
         NSLayoutConstraint.activate([
@@ -45,7 +39,7 @@ extension HeroCollectionViewCell: SelfConfiguringCell {
     
     
     func configure(with data: DataType) {
-        thumbnail.image = data.thumbnail
+        thumbnail.image = UIImage(data: data.thumbnail)
     }
     
 }

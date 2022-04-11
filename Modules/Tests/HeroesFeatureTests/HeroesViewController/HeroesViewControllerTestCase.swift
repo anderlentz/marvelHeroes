@@ -21,10 +21,10 @@ class HeroesViewControllerTestCase: XCTestCase {
             store: .init(
                 initialState: .init(
                     heroCellsData: [
-                        .init(name: "Test1", thumbnail: UIColor.gray.image()),
-                        .init(name: "Test1", thumbnail: UIColor.blue.image()),
-                        .init(name: "Test1", thumbnail: UIColor.green.image()),
-                        .init(name: "Test1", thumbnail: UIColor.black.image())
+                        .init(id: 1, name: "Test1", thumbnail: UIColor.gray.image().pngData()!),
+                        .init(id: 2, name: "Test2", thumbnail: UIColor.blue.image().pngData()!),
+                        .init(id: 3, name: "Test3", thumbnail: UIColor.green.image().pngData()!),
+                        .init(id: 4, name: "Test4", thumbnail: UIColor.black.image().pngData()!)
                     ]
                 ),
                  reducer: .empty,
