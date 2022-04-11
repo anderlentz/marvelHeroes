@@ -37,5 +37,13 @@ public let heroesReducer = HeroesReducer { state, action, environment in
     case let .show(cell: cell):
         state.heroCellsData.append(cell)
         return .none
+        
+    case let .searchCharacter(name: name):
+        guard let name = name, name.isEmpty == false else {
+            return .none
+        }
+        let filteredHeroes = state.heroCellsData.filter { $0.name.contains(name) }
+        state.heroCellsData = filteredHeroes
+        return .none
     }
 }

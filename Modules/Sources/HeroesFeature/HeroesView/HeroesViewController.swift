@@ -14,6 +14,7 @@ public class HeroesViewController: UICollectionViewController {
     private let viewStore: ViewStore<HoroesViewState, HeroesViewAction>
     
     private(set) var sections: [HeroesSection] = [.main]
+    private var searchController = UISearchController(searchResultsController: nil)
     private var dataSource: DataSource?
     private var cancellables: Set<AnyCancellable> = []
     
@@ -30,12 +31,15 @@ public class HeroesViewController: UICollectionViewController {
     // MARK: - Life Cycle
     public override func viewDidLoad() {
         navigationItem.title = "Marvel Heroes"
+        configureSearchController()
         configureCollectionView()
         createDataSource()
         
         self.viewStore.publisher
             .heroCellsData
-            .sink { [weak self] data in self?.applySnapshot(from: data) }
+            .sink { [weak self] data in
+                self?.applySnapshot(from: data)
+            }
             .store(in: &self.cancellables)
         
         self.viewStore.send(.load)
@@ -99,6 +103,14 @@ public class HeroesViewController: UICollectionViewController {
         dataSource?.apply(snapshot)
     }
     
+    private func configureSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Heroes"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+    }
+    
     public override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let heroCellData = dataSource?.itemIdentifier(for: indexPath) else {
           return
@@ -121,4 +133,13 @@ public class HeroesViewController: UICollectionViewController {
             animated: true
         )
     }
+}
+
+// MARK: - UISearchResultsUpdating Delegate
+extension HeroesViewController: UISearchResultsUpdating {
+    
+    public func updateSearchResults(for searchController: UISearchController) {
+        viewStore.send(.searchCharacter(name: searchController.searchBar.text))
+    }
+    
 }

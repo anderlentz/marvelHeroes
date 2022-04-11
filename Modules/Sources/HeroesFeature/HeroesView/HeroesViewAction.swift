@@ -5,4 +5,5 @@ public enum HeroesViewAction: Equatable {
     case receiveCharacters(Result<[MarvelCharacter], CommonErrors>)
     case loadThumbnail(characters: [MarvelCharacter])
     case show(cell: HeroCellData)
+    case searchCharacter(name: String?)
 }
