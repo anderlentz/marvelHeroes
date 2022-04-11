@@ -4,14 +4,91 @@
 //
 //  Created by Anderson Lentz on 29/03/22.
 //
-
+import Combine
+import CoreHTTPClient
+import HeroesAPI
 import HeroesFeature
+import URLSessionHTTPClient
 import UIKit
+
+public extension HTTPClient {
+    typealias Publisher = AnyPublisher<Data, Error>
+    
+    func getPublisher(url: URL) -> Publisher {
+        return Deferred {
+            Future { completion in
+                Task {
+                    let result = try await self.get(from: url)
+                    completion(.success(result))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+}
+
+struct RemoteMarvelCharactersLoader: MarvelCharactersLoader {
+    
+    private let client: HTTPClient
+    
+    init(client: HTTPClient = URLSessionHTTPClient(session: URLSession.shared)) {
+        self.client = client
+    }
+    
+    func loadCharacter(from url: URL) throws -> Data {
+        Data()
+    }
+}
+
+
+public extension MarvelCharactersLoader {
+    typealias Publisher = AnyPublisher<Data, Error>
+    
+    func loadCharacter(from url: URL) -> Publisher {
+        return Deferred {
+            Future { completion in
+                completion(Result {
+                    try self.loadCharacter(from: url)
+                })
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+}
+
+class HeroesDependencies {
+    
+    private lazy var httpClient: HTTPClient = {
+        URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
+    }()
+    
+    private lazy var errorImageData = {
+        UIImage(named: "image_not_available")!.jpegData(compressionQuality: 0.5)!
+    }()
+    
+    func makeRemoteMarvelCharactersLoader() -> AnyPublisher<[MarvelCharacter], Error> {
+        let url = MarvelCharactersAPI.characters.url!
+        
+        return httpClient
+            .getPublisher(url: url)
+            .tryMap(MarvelCharacterItemsMapper.map)
+            .eraseToAnyPublisher()
+    }
+    
+    func makeThumbnailLoader(url: URL) -> AnyPublisher<Data, Never> {
+        return httpClient
+            .getPublisher(url: url)
+            .replaceError(with: errorImageData)
+            .eraseToAnyPublisher()
+    }
+    
+}
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    let heroesDependencies = HeroesDependencies()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         /// 1. Capture the scene
@@ -21,8 +98,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         /// 3. Create a view hierarchy programmatically
+        let state = HoroesViewState()
+        let environment = HeroesEnvironment(
+            marvelCharactersLoader: heroesDependencies.makeRemoteMarvelCharactersLoader,
+            loadThumbnail: heroesDependencies.makeThumbnailLoader,
+            mainQueue: DispatchQueue.main.eraseToAnyScheduler()
+        )
         let viewController = HeroesViewController(
-            store: .init(initialState: .init(), reducer: .empty, environment: Void()))
+            store: .init(
+                initialState: state,
+                reducer: heroesReducer,
+                environment: environment
+            )
+        )
         let navigation = UINavigationController(rootViewController: viewController)
         
         /// 4. Set the root view controller of the window with your view controller

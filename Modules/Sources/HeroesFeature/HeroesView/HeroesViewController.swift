@@ -37,6 +37,8 @@ public class HeroesViewController: UIViewController {
             .heroCellsData
             .sink { [weak self] data in self?.applySnapshot(from: data) }
             .store(in: &self.cancellables)
+        
+        self.viewStore.send(.load)
     }
     
     // MARK: - Config View
