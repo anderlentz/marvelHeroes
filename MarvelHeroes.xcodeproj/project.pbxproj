@@ -16,6 +16,9 @@
 		D8466C0B2802438000195476 /* HeroesFeature in Frameworks */ = {isa = PBXBuildFile; productRef = D8466C0A2802438000195476 /* HeroesFeature */; };
 		D8466C0D2802438000195476 /* URLSessionHTTPClient in Frameworks */ = {isa = PBXBuildFile; productRef = D8466C0C2802438000195476 /* URLSessionHTTPClient */; };
 		D8466C0F28025EFE00195476 /* HeroesAPI in Frameworks */ = {isa = PBXBuildFile; productRef = D8466C0E28025EFE00195476 /* HeroesAPI */; };
+		D8466C112805091200195476 /* NSImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8466C102805091200195476 /* NSImageCache.swift */; };
+		D8466C132805098700195476 /* NSMarvelCharacterCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8466C122805098700195476 /* NSMarvelCharacterCache.swift */; };
+		D8466C1528050A3C00195476 /* HeroesDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8466C1428050A3C00195476 /* HeroesDependencies.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +28,9 @@
 		D838018427F3CAE3000A3177 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D838018727F3CAE3000A3177 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D838018927F3CAE3000A3177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8466C102805091200195476 /* NSImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageCache.swift; sourceTree = "<group>"; };
+		D8466C122805098700195476 /* NSMarvelCharacterCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMarvelCharacterCache.swift; sourceTree = "<group>"; };
+		D8466C1428050A3C00195476 /* HeroesDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroesDependencies.swift; sourceTree = "<group>"; };
 		D8539A8C27F3D07F00AA7921 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Modules; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,6 +76,9 @@
 				D838018427F3CAE3000A3177 /* Assets.xcassets */,
 				D838018627F3CAE3000A3177 /* LaunchScreen.storyboard */,
 				D838018927F3CAE3000A3177 /* Info.plist */,
+				D8466C102805091200195476 /* NSImageCache.swift */,
+				D8466C122805098700195476 /* NSMarvelCharacterCache.swift */,
+				D8466C1428050A3C00195476 /* HeroesDependencies.swift */,
 			);
 			path = MarvelHeroes;
 			sourceTree = "<group>";
@@ -161,7 +170,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8466C132805098700195476 /* NSMarvelCharacterCache.swift in Sources */,
+				D8466C112805091200195476 /* NSImageCache.swift in Sources */,
 				D838017C27F3CAE1000A3177 /* AppDelegate.swift in Sources */,
+				D8466C1528050A3C00195476 /* HeroesDependencies.swift in Sources */,
 				D838017E27F3CAE1000A3177 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
