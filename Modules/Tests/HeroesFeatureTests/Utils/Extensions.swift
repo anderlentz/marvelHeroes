@@ -29,6 +29,8 @@ extension MarvelCharacter {
     static func mock(id: Int, name: String, description: String, thumbnailURL: String) -> Self {
         .init(id: id, name: name, description: description, thumbnailURL: thumbnailURL)
     }
+    
+    static var anyCharacter: Self { .mock(id: 0, name: "Name", description: "Description", thumbnailURL: "http://any-url/image.jpg") }
 }
 
 extension HeroCellData {

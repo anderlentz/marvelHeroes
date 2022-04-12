@@ -6,4 +6,5 @@ public enum HeroesViewAction: Equatable {
     case loadThumbnail(characters: [MarvelCharacter])
     case show(cell: HeroCellData)
     case searchCharacter(name: String?)
+    case loadCharacter(name: String)
 }

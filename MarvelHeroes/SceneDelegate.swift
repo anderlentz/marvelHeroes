@@ -82,6 +82,15 @@ class HeroesDependencies {
             .eraseToAnyPublisher()
     }
     
+    func makeRemoteMarvelCharactersByNameLoader(name: String) -> AnyPublisher<[MarvelCharacter], Error> {
+        let url = MarvelCharactersAPI.charactersByName(startingWithName: name).url!
+        
+        return httpClient
+            .getPublisher(url: url)
+            .tryMap(MarvelCharacterItemsMapper.map)
+            .eraseToAnyPublisher()
+    }
+    
 }
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -102,6 +111,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let environment = HeroesEnvironment(
             marvelCharactersLoader: heroesDependencies.makeRemoteMarvelCharactersLoader,
             loadThumbnail: heroesDependencies.makeThumbnailLoader,
+            loadMarvelCharacters: heroesDependencies.makeRemoteMarvelCharactersByNameLoader,
             mainQueue: DispatchQueue.main.eraseToAnyScheduler()
         )
         let viewController = HeroesViewController(

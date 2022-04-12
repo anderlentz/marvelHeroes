@@ -17,6 +17,7 @@ final class HeroFeatureTests: XCTestCase {
                 return .success()
             },
             loadThumbnail: { _ in .success()},
+            loadMarvelCharacters: { _ in .success() },
             mainQueue: scheduler
         )
         let store: Store<HoroesViewState, HeroesViewAction> = .init(
@@ -36,6 +37,7 @@ final class HeroFeatureTests: XCTestCase {
         let environment = HeroesEnvironment(
             marvelCharactersLoader: { .success(result: emptyCharactersResult) },
             loadThumbnail: { _ in .success()},
+            loadMarvelCharacters: { _ in .success() },
             mainQueue: .immediate.eraseToAnyScheduler()
         )
         let store = TestStore(
@@ -63,7 +65,9 @@ final class HeroFeatureTests: XCTestCase {
             marvelCharactersLoader: { .success(result: charactersResult) },
             loadThumbnail: { _ in
                 return .success(data: anyThumbnailImageData)
-            }, mainQueue: .immediate.eraseToAnyScheduler()
+            },
+            loadMarvelCharacters: { _ in .success() },
+            mainQueue: .immediate.eraseToAnyScheduler()
         )
         let store = TestStore(
             initialState: HoroesViewState(),
@@ -91,6 +95,7 @@ final class HeroFeatureTests: XCTestCase {
                 didCallLoadThumbnail = true
                 return .success()
             },
+            loadMarvelCharacters: { _ in .success() },
             mainQueue: .immediate.eraseToAnyScheduler()
         )
         let store = TestStore(
@@ -120,6 +125,7 @@ final class HeroFeatureTests: XCTestCase {
                 didCallLoadThumbnail = true
                 return .success()
             },
+            loadMarvelCharacters: { _ in .success() },
             mainQueue: .immediate.eraseToAnyScheduler()
         )
         let store = TestStore(
@@ -149,6 +155,7 @@ final class HeroFeatureTests: XCTestCase {
                 didCallLoadThumbnail = true
                 return .success()
             },
+            loadMarvelCharacters: { _ in .success() },
             mainQueue: .immediate.eraseToAnyScheduler()
         )
         let store = TestStore(
@@ -164,14 +171,14 @@ final class HeroFeatureTests: XCTestCase {
 
     }
     
-    func test_search_withFirstHeroCellName_shouldFilterLocalState() {
+    func test_searchCharacter_withEmptyResult_shouldReceivedEmptyResult_onSuccess() {
         
-        let heroCellData1: HeroCellData = .mock(id: 0, name: "Hero 1", thumbnailImageData: Data())
-        let heroCellData2: HeroCellData = .mock(id: 0, name: "Hero 2", thumbnailImageData: Data())
-        let name = heroCellData1.name
+        let anySearchName = "any"
+        let loadMarvelEmptyResult: [MarvelCharacter] = []
         
         var didCallMarvelCharactersLoader = false
         var didCallLoadThumbnail = false
+        var didCallLoadMarvelCharactersByName = false
         
         let environment = HeroesEnvironment(
             marvelCharactersLoader: {
@@ -182,31 +189,41 @@ final class HeroFeatureTests: XCTestCase {
                 didCallLoadThumbnail = true
                 return .success()
             },
+            loadMarvelCharacters: { _ in
+                didCallLoadMarvelCharactersByName = true
+                return .success(result: loadMarvelEmptyResult)
+                
+            },
             mainQueue: .immediate.eraseToAnyScheduler()
         )
         let store = TestStore(
-            initialState: HoroesViewState(heroCellsData: [heroCellData1, heroCellData2]),
+            initialState: HoroesViewState(),
             reducer: heroesReducer,
             environment: environment
         )
         
-        store.send(.searchCharacter(name: name)) {
-            $0.heroCellsData = [heroCellData1]
-        }
+        store.send(.searchCharacter(name: anySearchName))
+        store.receive(.loadCharacter(name: anySearchName))
+        store.receive(.receiveCharacters(.success([])))
+        store.receive(.loadThumbnail(characters: []))
         
         XCTAssertFalse(didCallMarvelCharactersLoader)
         XCTAssertFalse(didCallLoadThumbnail)
+        XCTAssertTrue(didCallLoadMarvelCharactersByName)
 
     }
     
-    func test_search_withName_whenDoestContainName_shouldReturnEmpty() {
+    func test_searchCharacter_happyPath() {
         
-        let heroCellData1: HeroCellData = .mock(id: 0, name: "Hero 1", thumbnailImageData: Data())
-        let heroCellData2: HeroCellData = .mock(id: 0, name: "Hero 2", thumbnailImageData: Data())
-        let name = "Some Name"
+        let anyCharacter = MarvelCharacter.anyCharacter
+        let expectedData = Data(anyCharacter.thumbnailURL.utf8)
+        let loadMarvelByNameAnyResult: [MarvelCharacter] = [.anyCharacter]
+        let searchedName = "Any Name"
+        let expectedCellData = HeroCellData(id: anyCharacter.id, name: anyCharacter.name, thumbnail: expectedData, description: anyCharacter.description)
         
         var didCallMarvelCharactersLoader = false
         var didCallLoadThumbnail = false
+        var didCallLoadMarvelCharactersByName = false
         
         let environment = HeroesEnvironment(
             marvelCharactersLoader: {
@@ -215,23 +232,54 @@ final class HeroFeatureTests: XCTestCase {
             },
             loadThumbnail: { _ in
                 didCallLoadThumbnail = true
-                return .success()
+                return .success(data: expectedData)
+            },
+            loadMarvelCharacters: { _ in
+                didCallLoadMarvelCharactersByName = true
+                return .success(result: loadMarvelByNameAnyResult)
             },
             mainQueue: .immediate.eraseToAnyScheduler()
         )
         let store = TestStore(
-            initialState: HoroesViewState(heroCellsData: [heroCellData1, heroCellData2]),
+            initialState: HoroesViewState(),
             reducer: heroesReducer,
             environment: environment
         )
         
-        store.send(.searchCharacter(name: name)) {
-            $0.heroCellsData = []
+        store.send(.searchCharacter(name: searchedName))
+        store.receive(.loadCharacter(name: searchedName))
+        store.receive(.receiveCharacters(.success(loadMarvelByNameAnyResult)))
+        store.receive(.loadThumbnail(characters: loadMarvelByNameAnyResult))
+        store.receive(.show(cell: expectedCellData)) {
+            $0.heroCellsData = [expectedCellData]
         }
         
         XCTAssertFalse(didCallMarvelCharactersLoader)
-        XCTAssertFalse(didCallLoadThumbnail)
+        XCTAssertTrue(didCallLoadThumbnail)
+        XCTAssertTrue(didCallLoadMarvelCharactersByName)
 
+    }
+    
+    func test_show_shouldNotAppendExistingDataWithSameID() {
+
+        let sameID = 123
+        let heroCell = HeroCellData(id: sameID, name: "Test", thumbnail: Data())
+        
+        let environment = HeroesEnvironment(
+            marvelCharactersLoader: { .success() },
+            loadThumbnail: { _ in .success()},
+            loadMarvelCharacters: { _ in .success() },
+            mainQueue: .immediate.eraseToAnyScheduler()
+        )
+        let store = TestStore(
+            initialState: HoroesViewState(heroCellsData: [heroCell]),
+            reducer: heroesReducer,
+            environment: environment
+        )
+      
+        
+        store.send(.show(cell: heroCell))
+        
     }
     
 }

@@ -17,6 +17,7 @@ public let heroesReducer = HeroesReducer { state, action, environment in
         return .none
         
     case let .receiveCharacters(.success(characters)):
+        state.heroCellsData = []
         return Effect(value: .loadThumbnail(characters: characters))
         
     case let .loadThumbnail(characters):
@@ -35,15 +36,24 @@ public let heroesReducer = HeroesReducer { state, action, environment in
         )
         
     case let .show(cell: cell):
+        guard state.heroCellsData.contains(where: { $0.id == cell.id}) == false else { return .none }
         state.heroCellsData.append(cell)
         return .none
         
     case let .searchCharacter(name: name):
+        struct SearchId: Hashable {}
         guard let name = name, name.isEmpty == false else {
             return .none
         }
-        let filteredHeroes = state.heroCellsData.filter { $0.name.contains(name) }
-        state.heroCellsData = filteredHeroes
-        return .none
+        return Effect(value: .loadCharacter(name: name)).debounce(id: SearchId(), for: 0.5, scheduler: environment.mainQueue).eraseToEffect()
+        
+    case let .loadCharacter(name: name):
+        return environment
+            .loadMarvelCharacters(name)
+            .mapError(CommonErrors.init)
+            .receive(on: environment.mainQueue)
+            .catchToEffect()
+            .map(HeroesViewAction.receiveCharacters)
+       
     }
 }
