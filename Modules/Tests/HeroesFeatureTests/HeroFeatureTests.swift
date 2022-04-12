@@ -12,7 +12,7 @@ final class HeroFeatureTests: XCTestCase {
         let scheduler = DispatchQueue.test.eraseToAnyScheduler()
         var didCallMarvelCharactersLoader = false
         let spyEnvironment = HeroesEnvironment(
-            marvelCharactersLoader: {
+            marvelCharactersLoader: { _ in
                 didCallMarvelCharactersLoader = true
                 return .success()
             },
@@ -20,8 +20,8 @@ final class HeroFeatureTests: XCTestCase {
             loadMarvelCharacters: { _ in .success() },
             mainQueue: scheduler
         )
-        let store: Store<HoroesViewState, HeroesViewAction> = .init(
-            initialState: HoroesViewState(),
+        let store: Store<HeroesViewState, HeroesViewAction> = .init(
+            initialState: HeroesViewState(),
             reducer: heroesReducer,
             environment: spyEnvironment
         )
@@ -34,14 +34,9 @@ final class HeroFeatureTests: XCTestCase {
     
     func test_marvelCharactersLoader_onSucessWithEmptyResult_happyPath() {
         let emptyCharactersResult: [MarvelCharacter] = []
-        let environment = HeroesEnvironment(
-            marvelCharactersLoader: { .success(result: emptyCharactersResult) },
-            loadThumbnail: { _ in .success()},
-            loadMarvelCharacters: { _ in .success() },
-            mainQueue: .immediate.eraseToAnyScheduler()
-        )
+        let environment: HeroesEnvironment = .succefullEnv
         let store = TestStore(
-            initialState: HoroesViewState(),
+            initialState: HeroesViewState(),
             reducer: heroesReducer,
             environment: environment
         )
@@ -62,7 +57,7 @@ final class HeroFeatureTests: XCTestCase {
         let expectedCellData = HeroCellData(id: character1.id, name: character1.name, thumbnail: anyThumbnailImageData, description: character1.description)
         
         let environment = HeroesEnvironment(
-            marvelCharactersLoader: { .success(result: charactersResult) },
+            marvelCharactersLoader: { _ in .success(result: charactersResult) },
             loadThumbnail: { _ in
                 return .success(data: anyThumbnailImageData)
             },
@@ -70,7 +65,7 @@ final class HeroFeatureTests: XCTestCase {
             mainQueue: .immediate.eraseToAnyScheduler()
         )
         let store = TestStore(
-            initialState: HoroesViewState(),
+            initialState: HeroesViewState(),
             reducer: heroesReducer,
             environment: environment
         )
@@ -90,7 +85,7 @@ final class HeroFeatureTests: XCTestCase {
         
         let mockError = NSError(domain: "MOCK", code: 0)
         let environment = HeroesEnvironment(
-            marvelCharactersLoader: { .failure(error: mockError) },
+            marvelCharactersLoader: { _ in .failure(error: mockError) },
             loadThumbnail: { _ in
                 didCallLoadThumbnail = true
                 return .success()
@@ -99,7 +94,7 @@ final class HeroFeatureTests: XCTestCase {
             mainQueue: .immediate.eraseToAnyScheduler()
         )
         let store = TestStore(
-            initialState: HoroesViewState(),
+            initialState: HeroesViewState(),
             reducer: heroesReducer,
             environment: environment
         )
@@ -117,7 +112,7 @@ final class HeroFeatureTests: XCTestCase {
         var didCallLoadThumbnail = false
         
         let environment = HeroesEnvironment(
-            marvelCharactersLoader: {
+            marvelCharactersLoader: { _ in
                 didCallMarvelCharactersLoader = true
                 return .success()
             },
@@ -129,7 +124,7 @@ final class HeroFeatureTests: XCTestCase {
             mainQueue: .immediate.eraseToAnyScheduler()
         )
         let store = TestStore(
-            initialState: HoroesViewState(),
+            initialState: HeroesViewState(),
             reducer: heroesReducer,
             environment: environment
         )
@@ -147,7 +142,7 @@ final class HeroFeatureTests: XCTestCase {
         var didCallLoadThumbnail = false
         
         let environment = HeroesEnvironment(
-            marvelCharactersLoader: {
+            marvelCharactersLoader: {_ in
                 didCallMarvelCharactersLoader = true
                 return .success()
             },
@@ -159,7 +154,7 @@ final class HeroFeatureTests: XCTestCase {
             mainQueue: .immediate.eraseToAnyScheduler()
         )
         let store = TestStore(
-            initialState: HoroesViewState(),
+            initialState: HeroesViewState(),
             reducer: heroesReducer,
             environment: environment
         )
@@ -181,7 +176,7 @@ final class HeroFeatureTests: XCTestCase {
         var didCallLoadMarvelCharactersByName = false
         
         let environment = HeroesEnvironment(
-            marvelCharactersLoader: {
+            marvelCharactersLoader: { _ in
                 didCallMarvelCharactersLoader = true
                 return .success()
             },
@@ -197,12 +192,14 @@ final class HeroFeatureTests: XCTestCase {
             mainQueue: .immediate.eraseToAnyScheduler()
         )
         let store = TestStore(
-            initialState: HoroesViewState(),
+            initialState: HeroesViewState(),
             reducer: heroesReducer,
             environment: environment
         )
         
-        store.send(.searchCharacter(name: anySearchName))
+        store.send(.searchCharacter(name: anySearchName)) {
+            $0.lastSearch = anySearchName
+        }
         store.receive(.loadCharacter(name: anySearchName))
         store.receive(.receiveCharacters(.success([])))
         store.receive(.loadThumbnail(characters: []))
@@ -226,7 +223,7 @@ final class HeroFeatureTests: XCTestCase {
         var didCallLoadMarvelCharactersByName = false
         
         let environment = HeroesEnvironment(
-            marvelCharactersLoader: {
+            marvelCharactersLoader: { _ in
                 didCallMarvelCharactersLoader = true
                 return .success()
             },
@@ -241,12 +238,14 @@ final class HeroFeatureTests: XCTestCase {
             mainQueue: .immediate.eraseToAnyScheduler()
         )
         let store = TestStore(
-            initialState: HoroesViewState(),
+            initialState: HeroesViewState(),
             reducer: heroesReducer,
             environment: environment
         )
         
-        store.send(.searchCharacter(name: searchedName))
+        store.send(.searchCharacter(name: searchedName)) {
+            $0.lastSearch = searchedName
+        }
         store.receive(.loadCharacter(name: searchedName))
         store.receive(.receiveCharacters(.success(loadMarvelByNameAnyResult)))
         store.receive(.loadThumbnail(characters: loadMarvelByNameAnyResult))
@@ -265,21 +264,76 @@ final class HeroFeatureTests: XCTestCase {
         let sameID = 123
         let heroCell = HeroCellData(id: sameID, name: "Test", thumbnail: Data())
         
-        let environment = HeroesEnvironment(
-            marvelCharactersLoader: { .success() },
-            loadThumbnail: { _ in .success()},
-            loadMarvelCharacters: { _ in .success() },
-            mainQueue: .immediate.eraseToAnyScheduler()
-        )
+        let environment: HeroesEnvironment = .succefullEnv
+        
         let store = TestStore(
-            initialState: HoroesViewState(heroCellsData: [heroCell]),
+            initialState: HeroesViewState(heroCellsData: [heroCell]),
             reducer: heroesReducer,
             environment: environment
         )
       
-        
         store.send(.show(cell: heroCell))
         
     }
     
+    func test_loadMoreCharacters_incrementBy20CurrentOffset() {
+        
+        let environment: HeroesEnvironment = .succefullEnv
+    
+        let store = TestStore(
+            initialState: HeroesViewState(heroCellsData: []),
+            reducer: heroesReducer,
+            environment: environment
+        )
+              
+        store.send(.loadMoreCharacters) {
+            $0.paginationState.currentOffset = 20
+        }
+        store.receive(.receivedLoadMoreCharacters(.success([])))
+        
+        store.send(.loadMoreCharacters) {
+            $0.paginationState.currentOffset = 40
+        }
+        store.receive(.receivedLoadMoreCharacters(.success([])))
+        
+    }
+    
+    func test_loadMoreCharacters_withNonEmptyData_shouldAppendResult() {
+        let expectedData = Data()
+        
+        let character2 = MarvelCharacter(id: 1, name: "name1", description: "desc1", thumbnailURL: "http:any-url.com")
+        
+        let result: [MarvelCharacter] = [character2]
+        
+        let expectedCellData2 = HeroCellData(id: character2.id, name: character2.name, thumbnail: expectedData, description: character2.description)
+        
+        let defaultData = HeroCellData.mock(id: 1, name: "1", thumbnailImageData: Data())
+        let environment: HeroesEnvironment = .init(
+            marvelCharactersLoader: {
+                _ in .success(result: result) },
+            loadThumbnail:  { _ in .success(data: expectedData) },
+            loadMarvelCharacters:  { _ in .success() },
+            mainQueue: .immediate.eraseToAnyScheduler()
+        )
+    
+        let store = TestStore(
+            initialState: HeroesViewState(heroCellsData: [defaultData]),
+            reducer: heroesReducer,
+            environment: environment
+        )
+              
+        store.send(.loadMoreCharacters) {
+            $0.paginationState.currentOffset = 20
+        }
+        store.receive(.receivedLoadMoreCharacters(.success(result)))
+        store.receive(.appendCell(cell: expectedCellData2)) {
+            $0.heroCellsData = [defaultData, expectedCellData2]
+        }
+        
+    }
+    
+}
+
+extension HeroesEnvironment {
+    static let succefullEnv: Self = .init(marvelCharactersLoader: { _ in .success() }, loadThumbnail:  { _ in .success() }, loadMarvelCharacters:  { _ in .success() }, mainQueue: .immediate.eraseToAnyScheduler())
 }

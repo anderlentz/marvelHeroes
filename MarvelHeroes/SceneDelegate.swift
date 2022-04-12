@@ -70,7 +70,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         /// 3. Create a view hierarchy programmatically
-        let state = HoroesViewState()
+        let state = HeroesViewState()
         let environment = HeroesEnvironment(
             marvelCharactersLoader: heroesDependencies.makeRemoteMarvelCharactersLoader,
             loadThumbnail: heroesDependencies.makeThumbnailLoader,

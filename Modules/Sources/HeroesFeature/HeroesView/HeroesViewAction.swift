@@ -7,4 +7,7 @@ public enum HeroesViewAction: Equatable {
     case show(cell: HeroCellData)
     case searchCharacter(name: String?)
     case loadCharacter(name: String)
+    case loadMoreCharacters
+    case receivedLoadMoreCharacters(Result<[MarvelCharacter], CommonErrors>)
+    case appendCell(cell: HeroCellData)
 }

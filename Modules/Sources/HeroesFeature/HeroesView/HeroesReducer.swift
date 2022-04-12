@@ -1,13 +1,13 @@
 import ComposableArchitecture
 import UIKit
 
-public typealias HeroesReducer = Reducer<HoroesViewState, HeroesViewAction, HeroesEnvironment>
+public typealias HeroesReducer = Reducer<HeroesViewState, HeroesViewAction, HeroesEnvironment>
 
 public let heroesReducer = HeroesReducer { state, action, environment in
     switch action {
     case .load:
         return environment
-            .marvelCharactersLoader()
+            .marvelCharactersLoader(state.paginationState.currentOffset)
             .mapError(CommonErrors.init)
             .receive(on: environment.mainQueue)
             .catchToEffect()
@@ -59,6 +59,37 @@ public let heroesReducer = HeroesReducer { state, action, environment in
             .receive(on: environment.mainQueue)
             .catchToEffect()
             .map(HeroesViewAction.receiveCharacters)
+        
+    case .loadMoreCharacters:
+        state.paginationState.nextOffset()
+        return environment
+            .marvelCharactersLoader(state.paginationState.currentOffset)
+            .removeDuplicates()
+            .mapError(CommonErrors.init)
+            .receive(on: environment.mainQueue)
+            .catchToEffect()
+            .map(HeroesViewAction.receivedLoadMoreCharacters)
        
+    case let .receivedLoadMoreCharacters(.success(characters)):
+        return .merge(
+            characters.map { character in
+                return environment
+                    .loadThumbnail(URL(string: character.thumbnailURL)!)
+                    .map { data in
+                        return HeroesViewAction.appendCell(
+                            cell: HeroCellData(id: character.id, name: character.name, thumbnail: data, description: character.description)
+                        )
+                    }
+                    .receive(on: environment.mainQueue)
+                    .eraseToEffect()
+            }
+        )
+        
+    case .receivedLoadMoreCharacters(.failure):
+        return .none
+        
+    case let .appendCell(cell: cell):
+        state.heroCellsData.append(cell)
+        return .none
     }
 }

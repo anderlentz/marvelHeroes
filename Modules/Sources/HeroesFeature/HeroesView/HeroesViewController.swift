@@ -11,7 +11,7 @@ public class HeroesViewController: UICollectionViewController {
     private typealias Snapshot = NSDiffableDataSourceSnapshot<HeroesSection, HeroCellData>
     
     // MARK: - Properties
-    private let viewStore: ViewStore<HoroesViewState, HeroesViewAction>
+    private let viewStore: ViewStore<HeroesViewState, HeroesViewAction>
     
     private(set) var sections: [HeroesSection] = [.main]
     private var searchController = UISearchController(searchResultsController: nil)
@@ -19,7 +19,7 @@ public class HeroesViewController: UICollectionViewController {
     private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Initializer
-    public init(store: Store<HoroesViewState, HeroesViewAction>) {
+    public init(store: Store<HeroesViewState, HeroesViewAction>) {
         self.viewStore = ViewStore(store)
         super.init(collectionViewLayout: HeroesViewController.getUICollectionViewFlowLayout())
       }
@@ -132,6 +132,16 @@ public class HeroesViewController: UICollectionViewController {
             ),
             animated: true
         )
+    }
+    
+    public override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.isDragging else { return }
+        
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        if (offsetY > contentHeight - scrollView.frame.height) {
+            viewStore.send(.loadMoreCharacters)
+        }
     }
 }
 

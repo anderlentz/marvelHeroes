@@ -19,8 +19,8 @@ class HeroesDependencies {
     let imageCache = ImageCache()
     let marvelCharactersCache = NSMarvelCharacterCache()
     
-    func makeRemoteMarvelCharactersLoader() -> AnyPublisher<[MarvelCharacter], Error> {
-        let url = MarvelCharactersAPI.characters.url!
+    func makeRemoteMarvelCharactersLoader(offset: Int) -> AnyPublisher<[MarvelCharacter], Error> {
+        let url = MarvelCharactersAPI.characters(offset: offset).url!
         
         return httpClient
             .getPublisher(url: url)

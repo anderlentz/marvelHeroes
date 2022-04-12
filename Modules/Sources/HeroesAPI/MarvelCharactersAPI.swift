@@ -3,7 +3,7 @@ import CoreNetwork
 
 public enum MarvelCharactersAPI: Endpoint {
     
-    case characters
+    case characters(offset: Int)
     case charactersByName(startingWithName: String)
     
     public var baseURL: String {
@@ -18,13 +18,14 @@ public enum MarvelCharactersAPI: Endpoint {
     }
     
     public var queryItems: [URLQueryItem] {
+        var queryItems = authenticationQueryItems()
+        
         switch self {
-        case .characters:
-            return authenticationQueryItems()
-            
+        case let .characters(offset):
+            queryItems.append(offsetQuery(offset))
+            return queryItems
             
         case let .charactersByName(startingWithName: name):
-            var queryItems = authenticationQueryItems()
             queryItems.append(startingWithNameQuery(name))
             return queryItems
         }
@@ -46,6 +47,10 @@ public enum MarvelCharactersAPI: Endpoint {
     
     private func startingWithNameQuery(_ name: String) -> URLQueryItem {
         URLQueryItem(name: "nameStartsWith", value: name)
+    }
+    
+    private func offsetQuery(_ offset: Int) -> URLQueryItem {
+        URLQueryItem(name: "offset", value: "\(offset)")
     }
 }
 
