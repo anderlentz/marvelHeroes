@@ -43,8 +43,13 @@ public let heroesReducer = HeroesReducer { state, action, environment in
     case let .searchCharacter(name: name):
         struct SearchId: Hashable {}
         guard let name = name, name.isEmpty == false else {
+            if state.lastSearch.isEmpty == false {
+                return Effect(value: .load).debounce(id: SearchId(), for: 0.5, scheduler: environment.mainQueue).eraseToEffect()
+            }
             return .none
         }
+        
+        state.lastSearch = name
         return Effect(value: .loadCharacter(name: name)).debounce(id: SearchId(), for: 0.5, scheduler: environment.mainQueue).eraseToEffect()
         
     case let .loadCharacter(name: name):
