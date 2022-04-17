@@ -3,6 +3,7 @@ import CoreHTTPClient
 import Foundation
 import HeroesAPI
 import HeroesFeature
+import Feature_HeroDetails
 import URLSessionHTTPClient
 import UIKit
 
@@ -51,6 +52,15 @@ class HeroesDependencies {
         return httpClient
             .getPublisher(url: url)
             .tryMap(MarvelCharacterItemsMapper.map)
+            .eraseToAnyPublisher()
+    }
+    
+    func loadDetails(id: Int) -> AnyPublisher<CharacterDetails, Error> {
+        let url = MarvelCharactersAPI.characterDetails(id: id).url!
+        
+        return httpClient
+            .getPublisher(url: url)
+            .tryMap(MarvelCharacterDetailsMapper.map)
             .eraseToAnyPublisher()
     }
     

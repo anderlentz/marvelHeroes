@@ -8,6 +8,7 @@ import Combine
 import CoreHTTPClient
 import HeroesAPI
 import HeroesFeature
+import Feature_HeroDetails
 import URLSessionHTTPClient
 import UIKit
 
@@ -24,25 +25,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         /// 2. Create a new UIWindow using the windowScene constructor which takes in a window scene.
         let window = UIWindow(windowScene: windowScene)
         
-        /// 3. Create a view hierarchy programmatically
-        let state = HeroesViewState()
-        let environment = HeroesEnvironment(
+        /// 3. Create a view hierarchy programmatically - Composition Root
+        
+        let heroDetailsEnvironment = HeroDetailsEnvironment(
+            loadCharacterDetails: heroesDependencies.loadDetails,
+            mainQueue: DispatchQueue.main.eraseToAnyScheduler()
+        )
+        
+        let heroesEnvironment = HeroesEnvironment(
             marvelCharactersLoader: heroesDependencies.makeRemoteMarvelCharactersLoader,
             loadThumbnail: heroesDependencies.makeThumbnailLoader,
             loadMarvelCharacters: heroesDependencies.makeRemoteMarvelCharactersByNameLoader,
             mainQueue: DispatchQueue.main.eraseToAnyScheduler()
         )
-        let viewController = HeroesViewController(
+        
+        let appEnvironment = AppEnvironment(
+            heroesEnvironment: heroesEnvironment,
+            heroDetailsEnvironment: heroDetailsEnvironment
+        )
+        
+        let appRootViewController = AppRootViewController(
             store: .init(
-                initialState: state,
-                reducer: heroesReducer,
-                environment: environment
+                initialState: .init(),
+                reducer: appReducer,
+                environment: appEnvironment
             )
         )
-        let navigation = UINavigationController(rootViewController: viewController)
         
         /// 4. Set the root view controller of the window with your view controller
-        window.rootViewController = navigation
+        window.rootViewController = appRootViewController
         
         /// 5. Set the window and call makeKeyAndVisible()
         self.window = window
