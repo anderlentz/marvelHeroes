@@ -14,6 +14,7 @@ let package = Package(
         .library(name: "URLSessionHTTPClient", targets: ["URLSessionHTTPClient"]),
         .library(name: "HeroesAPI", targets: ["HeroesAPI"]),
         .library(name: "CoreHTTPClient", targets: ["CoreHTTPClient"]),
+        .library(name: "CoreUtils", targets: ["CoreUtils"])
     ],
     dependencies: [
         .package(
@@ -45,6 +46,9 @@ let package = Package(
             ]
         ),
         .target(
+            name: "CoreUtils",
+            dependencies: []
+        ),
             name: "HeroesAPI",
             dependencies: [
                 "CoreNetwork",
@@ -61,6 +65,7 @@ let package = Package(
             name: "HeroesFeature",
             dependencies: [
                 "CoreUI",
+                "CoreUtils",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
             ]
         ),

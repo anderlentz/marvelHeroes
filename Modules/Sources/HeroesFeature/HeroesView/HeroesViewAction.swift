@@ -1,4 +1,5 @@
 import Foundation
+import CoreUtils
 
 public enum HeroesViewAction: Equatable {
     case load
