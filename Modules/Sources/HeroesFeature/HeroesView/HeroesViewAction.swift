@@ -11,4 +11,6 @@ public enum HeroesViewAction: Equatable {
     case loadMoreCharacters
     case receivedLoadMoreCharacters(Result<[MarvelCharacter], CommonErrors>)
     case appendCell(cell: HeroCellData)
+    case navigateToHeroDetails(heroCellData: HeroCellData)
+    case setNavigation(isActive: Bool)
 }

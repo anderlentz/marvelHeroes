@@ -4,7 +4,7 @@ public struct HeroesViewState: Equatable {
     var heroCellsData: [HeroCellData]
     var lastSearch = ""
     var paginationState = PaginationState()
-    
+    var isNavigationActive = false
     let offsetIncrementation = 20
     
     public init(heroCellsData: [HeroCellData] = [HeroCellData]()) {

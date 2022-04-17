@@ -12,6 +12,7 @@ public class HeroesViewController: UICollectionViewController {
     
     // MARK: - Properties
     private let viewStore: ViewStore<HeroesViewState, HeroesViewAction>
+    private let store: Store<HeroesViewState, HeroesViewAction>
     
     private(set) var sections: [HeroesSection] = [.main]
     private var searchController = UISearchController(searchResultsController: nil)
@@ -20,6 +21,7 @@ public class HeroesViewController: UICollectionViewController {
     
     // MARK: - Initializer
     public init(store: Store<HeroesViewState, HeroesViewAction>) {
+        self.store = store
         self.viewStore = ViewStore(store)
         super.init(collectionViewLayout: HeroesViewController.getUICollectionViewFlowLayout())
       }
@@ -43,6 +45,13 @@ public class HeroesViewController: UICollectionViewController {
             .store(in: &self.cancellables)
         
         self.viewStore.send(.load)
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if self.isMovingToParent == false {
+            self.viewStore.send(.setNavigation(isActive: false))
+        }
     }
     
     // MARK: - Config View
@@ -116,22 +125,7 @@ public class HeroesViewController: UICollectionViewController {
           return
         }
         
-        // TODO: Improve navigation, maybe with Coordinator Pattern? ;)
-        
-        navigationController?.pushViewController(
-            HeroDetailsViewController(
-                store: .init(
-                    initialState: HeroDetailsState(
-                        title: heroCellData.name,
-                        description: heroCellData.description,
-                        imageData: heroCellData.thumbnail
-                    ),
-                    reducer: .empty,
-                    environment: Void()
-                )
-            ),
-            animated: true
-        )
+        viewStore.send(.navigateToHeroDetails(heroCellData: heroCellData))
     }
     
     public override func scrollViewDidScroll(_ scrollView: UIScrollView) {

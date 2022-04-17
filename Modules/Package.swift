@@ -14,6 +14,7 @@ let package = Package(
         .library(name: "URLSessionHTTPClient", targets: ["URLSessionHTTPClient"]),
         .library(name: "HeroesAPI", targets: ["HeroesAPI"]),
         .library(name: "CoreHTTPClient", targets: ["CoreHTTPClient"]),
+        .library(name: "Feature-HeroDetails", targets: ["Feature-HeroDetails"]),
         .library(name: "CoreUtils", targets: ["CoreUtils"])
     ],
     dependencies: [
@@ -49,10 +50,12 @@ let package = Package(
             name: "CoreUtils",
             dependencies: []
         ),
+        .target(
             name: "HeroesAPI",
             dependencies: [
                 "CoreNetwork",
-                "HeroesFeature"
+                "HeroesFeature",
+                "Feature-HeroDetails"
             ]
         ),
         .testTarget(
@@ -73,7 +76,7 @@ let package = Package(
             name: "HeroesFeatureTests",
             dependencies: [
                 "HeroesFeature",
-                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+                .product(name: "SnapshotTesting", package: "swift-composable-architecture"),
             ]
         ),
         .target(
@@ -95,6 +98,21 @@ let package = Package(
             name: "URLSessionHTTPClientTests",
             dependencies: [
                 "URLSessionHTTPClient"
+            ]
+        ),
+        .target(
+            name: "Feature-HeroDetails",
+            dependencies: [
+                "CoreUI",
+                "CoreUtils",
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+            ]
+        ),
+        .testTarget(
+            name: "Feature-HeroDetailsTests",
+            dependencies: [
+                "Feature-HeroDetails",
+                .product(name: "SnapshotTesting", package: "swift-composable-architecture"),
             ]
         ),
     ]

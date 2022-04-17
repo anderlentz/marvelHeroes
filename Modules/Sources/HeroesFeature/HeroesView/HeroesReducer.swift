@@ -4,7 +4,7 @@ import UIKit
 
 public typealias HeroesReducer = Reducer<HeroesViewState, HeroesViewAction, HeroesEnvironment>
 
-public let heroesReducer = HeroesReducer { state, action, environment in
+private let mainHeroesReducer = HeroesReducer { state, action, environment in
     switch action {
     case .load:
         return environment
@@ -92,5 +92,19 @@ public let heroesReducer = HeroesReducer { state, action, environment in
     case let .appendCell(cell: cell):
         state.heroCellsData.append(cell)
         return .none
+    
+    case .navigateToHeroDetails:
+        return .none
+    
+    case .setNavigation:
+        return .none
+        
     }
 }
+
+
+public let heroesReducer: HeroesReducer = .combine(
+    [
+        mainHeroesReducer
+    ]
+)

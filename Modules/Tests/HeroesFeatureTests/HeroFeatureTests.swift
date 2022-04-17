@@ -1,8 +1,8 @@
 import Combine
 import ComposableArchitecture
+import CoreUtils
 import XCTest
 @testable import HeroesFeature
-import StoreKit
 
 final class HeroFeatureTests: XCTestCase {
     

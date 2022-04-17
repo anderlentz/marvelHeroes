@@ -2,10 +2,10 @@ import Foundation
 import UIKit
 
 public struct HeroCellData: Hashable {
-    var id: Int
-    let name: String
-    let thumbnail: Data
-    let description: String
+    public let id: Int
+    public let name: String
+    public let thumbnail: Data
+    public let description: String
     
     public init(id: Int, name: String, thumbnail: Data, description: String = "") {
         self.id = id
