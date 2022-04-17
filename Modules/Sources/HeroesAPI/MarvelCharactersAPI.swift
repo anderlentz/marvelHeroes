@@ -5,6 +5,7 @@ public enum MarvelCharactersAPI: Endpoint {
     
     case characters(offset: Int)
     case charactersByName(startingWithName: String)
+    case characterDetails(id: Int)
     
     public var baseURL: String {
         "https://gateway.marvel.com"
@@ -14,6 +15,8 @@ public enum MarvelCharactersAPI: Endpoint {
         switch self {
         case .characters, .charactersByName(startingWithName: _):
             return "/v1/public/characters"
+        case let .characterDetails(id: id):
+            return "/v1/public/characters/\(id)"
         }
     }
     
@@ -27,6 +30,9 @@ public enum MarvelCharactersAPI: Endpoint {
             
         case let .charactersByName(startingWithName: name):
             queryItems.append(startingWithNameQuery(name))
+            return queryItems
+            
+        case .characterDetails:
             return queryItems
         }
     }
