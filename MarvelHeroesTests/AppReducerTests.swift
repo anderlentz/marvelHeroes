@@ -3,7 +3,7 @@ import ComposableArchitecture
 import Foundation
 import XCTest
 @testable import MarvelHeroes
-@testable import HeroesFeature
+@testable import Feature_Heroes
 @testable import Feature_HeroDetails
 
 class AppReducerTest: XCTestCase {

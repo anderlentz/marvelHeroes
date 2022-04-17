@@ -1,5 +1,5 @@
 import Foundation
-import HeroesFeature
+import Feature_Heroes
 
 public final class MarvelCharacterItemsMapper {
     private struct Root: Decodable {

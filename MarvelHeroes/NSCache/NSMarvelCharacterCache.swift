@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import HeroesFeature
+import Feature_Heroes
 
 class MarvelCharacterWrapper {
     let data: MarvelCharacter

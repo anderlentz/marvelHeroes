@@ -1,12 +1,5 @@
-//
-//  File.swift
-//  
-//
-//  Created by Anderson Lentz on 07/04/22.
-//
-
 import XCTest
-@testable import HeroesFeature
+@testable import Feature_Heroes
 
 class HeroesViewControllerPropertiesTestCase: XCTestCase {
     

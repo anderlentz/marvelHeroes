@@ -1,5 +1,5 @@
 import Foundation
-import HeroesFeature
+import Feature_Heroes
 import Feature_HeroDetails
 
 struct AppState: Equatable {

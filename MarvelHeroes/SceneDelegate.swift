@@ -1,13 +1,7 @@
-//
-//  SceneDelegate.swift
-//  MarvelHeroes
-//
-//  Created by Anderson Lentz on 29/03/22.
-//
 import Combine
 import CoreHTTPClient
 import HeroesAPI
-import HeroesFeature
+import Feature_Heroes
 import Feature_HeroDetails
 import URLSessionHTTPClient
 import UIKit

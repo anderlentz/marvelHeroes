@@ -1,6 +1,6 @@
 import Combine
 import Foundation
-@testable import HeroesFeature
+@testable import Feature_Heroes
 
 extension AnyPublisher where Output == [MarvelCharacter], Failure == Error {
     static func success(result: [MarvelCharacter] = []) -> Self {

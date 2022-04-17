@@ -1,7 +1,7 @@
 import Combine
 import ComposableArchitecture
 import UIKit
-import HeroesFeature
+import Feature_Heroes
 import Feature_HeroDetails
 
 class AppRootViewController: UINavigationController {

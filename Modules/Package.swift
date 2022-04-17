@@ -9,7 +9,7 @@ let package = Package(
         .iOS(.v15)
     ],
     products: [
-        .library(name: "HeroesFeature", targets: ["HeroesFeature"]),
+        .library(name: "Feature-Heroes", targets: ["Feature-Heroes"]),
         .library(name: "CoreNetwork", targets: ["CoreNetwork"]),
         .library(name: "URLSessionHTTPClient", targets: ["URLSessionHTTPClient"]),
         .library(name: "HeroesAPI", targets: ["HeroesAPI"]),
@@ -54,7 +54,7 @@ let package = Package(
             name: "HeroesAPI",
             dependencies: [
                 "CoreNetwork",
-                "HeroesFeature",
+                "Feature-Heroes",
                 "Feature-HeroDetails"
             ]
         ),
@@ -65,7 +65,7 @@ let package = Package(
             ]
         ),
         .target(
-            name: "HeroesFeature",
+            name: "Feature-Heroes",
             dependencies: [
                 "CoreUI",
                 "CoreUtils",
@@ -73,9 +73,9 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "HeroesFeatureTests",
+            name: "Feature-HeroesTests",
             dependencies: [
-                "HeroesFeature",
+                "Feature-Heroes",
                 .product(name: "SnapshotTesting", package: "swift-composable-architecture"),
             ]
         ),

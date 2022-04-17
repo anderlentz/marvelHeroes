@@ -2,7 +2,7 @@ import Combine
 import ComposableArchitecture
 import CoreUtils
 import XCTest
-@testable import HeroesFeature
+@testable import Feature_Heroes
 
 final class HeroFeatureTests: XCTestCase {
     

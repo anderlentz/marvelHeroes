@@ -1,6 +1,6 @@
 import SnapshotTesting
 import XCTest
-@testable import HeroesFeature
+@testable import Feature_Heroes
 
 class SnapshotTestCase: XCTestCase {
     

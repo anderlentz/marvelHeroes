@@ -20,8 +20,8 @@
 		D8466C1528050A3C00195476 /* HeroesDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8466C1428050A3C00195476 /* HeroesDependencies.swift */; };
 		D87F9AE5280C6B7600D5DD3A /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87F9AE4280C6B7600D5DD3A /* AppReducer.swift */; };
 		D87F9AE7280C6DEF00D5DD3A /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87F9AE6280C6DEF00D5DD3A /* AppEnvironment.swift */; };
-		D87F9AE9280C853500D5DD3A /* HeroesFeature in Frameworks */ = {isa = PBXBuildFile; productRef = D87F9AE8280C853500D5DD3A /* HeroesFeature */; };
 		D87F9AF8280CAB6600D5DD3A /* AppReducerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87F9AF7280CAB6600D5DD3A /* AppReducerTests.swift */; };
+		D87F9AFA280CB4AD00D5DD3A /* Feature-Heroes in Frameworks */ = {isa = PBXBuildFile; productRef = D87F9AF9280CB4AD00D5DD3A /* Feature-Heroes */; };
 		D8B2FD17280C587400D1E1CE /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B2FD16280C587400D1E1CE /* AppState.swift */; };
 		D8B2FD1A280C588E00D1E1CE /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B2FD19280C588E00D1E1CE /* AppAction.swift */; };
 		D8B2FD1C280C5A1D00D1E1CE /* AppRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B2FD1B280C5A1D00D1E1CE /* AppRootViewController.swift */; };
@@ -64,9 +64,9 @@
 			files = (
 				D8466C092802438000195476 /* CoreNetwork in Frameworks */,
 				D8466C0527FFB60200195476 /* ComposableArchitecture in Frameworks */,
-				D87F9AE9280C853500D5DD3A /* HeroesFeature in Frameworks */,
 				D8466C0F28025EFE00195476 /* HeroesAPI in Frameworks */,
 				D8466C0D2802438000195476 /* URLSessionHTTPClient in Frameworks */,
+				D87F9AFA280CB4AD00D5DD3A /* Feature-Heroes in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,7 +172,7 @@
 				D8466C082802438000195476 /* CoreNetwork */,
 				D8466C0C2802438000195476 /* URLSessionHTTPClient */,
 				D8466C0E28025EFE00195476 /* HeroesAPI */,
-				D87F9AE8280C853500D5DD3A /* HeroesFeature */,
+				D87F9AF9280CB4AD00D5DD3A /* Feature-Heroes */,
 			);
 			productName = MarvelHeroes;
 			productReference = D838017827F3CAE1000A3177 /* MarvelHeroes.app */;
@@ -573,9 +573,9 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = HeroesAPI;
 		};
-		D87F9AE8280C853500D5DD3A /* HeroesFeature */ = {
+		D87F9AF9280CB4AD00D5DD3A /* Feature-Heroes */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = HeroesFeature;
+			productName = "Feature-Heroes";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

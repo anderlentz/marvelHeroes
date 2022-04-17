@@ -1,5 +1,5 @@
 import ComposableArchitecture
-import HeroesFeature
+import Feature_Heroes
 import Feature_HeroDetails
 
 typealias AppReducer = Reducer<AppState, AppAction, AppEnvironment>

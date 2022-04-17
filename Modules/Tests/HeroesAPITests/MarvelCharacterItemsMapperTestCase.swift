@@ -1,6 +1,6 @@
 import XCTest
 @testable import HeroesAPI
-@testable import HeroesFeature
+@testable import Feature_Heroes
 
 final class MarvelCharacterItemsMapperTestCase: XCTestCase {
     

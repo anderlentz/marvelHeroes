@@ -2,7 +2,7 @@ import Combine
 import CoreHTTPClient
 import Foundation
 import HeroesAPI
-import HeroesFeature
+import Feature_Heroes
 import Feature_HeroDetails
 import URLSessionHTTPClient
 import UIKit
