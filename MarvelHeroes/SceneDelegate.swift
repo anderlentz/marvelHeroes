@@ -11,36 +11,6 @@ import HeroesFeature
 import URLSessionHTTPClient
 import UIKit
 
-
-struct RemoteMarvelCharactersLoader: MarvelCharactersLoader {
-    
-    private let client: HTTPClient
-    
-    init(client: HTTPClient = URLSessionHTTPClient(session: URLSession.shared)) {
-        self.client = client
-    }
-    
-    func loadCharacter(from url: URL) throws -> Data {
-        Data()
-    }
-}
-
-
-public extension MarvelCharactersLoader {
-    typealias Publisher = AnyPublisher<Data, Error>
-    
-    func loadCharacter(from url: URL) -> Publisher {
-        return Deferred {
-            Future { completion in
-                completion(Result {
-                    try self.loadCharacter(from: url)
-                })
-            }
-        }
-        .eraseToAnyPublisher()
-    }
-}
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
